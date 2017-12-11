@@ -21,10 +21,10 @@
     state: absent
     name: --all-databases
 
-- name : Import initial schema
-  mysql_db: name=zabbix state=import target={{ item }}
-  with_items:
-    - /usr/share/doc/zabbix-server-mysql-3.4.4/create.sql.gz
+#- name : Import initial schema
+#  mysql_db: name=zabbix state=import target={{ item }}
+#  with_items:
+#    - /usr/share/doc/zabbix-server-mysql-3.4.4/create.sql.gz
 
 - name: Change PHP configuration
   lineinfile:
