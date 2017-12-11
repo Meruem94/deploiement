@@ -2,5 +2,16 @@
 ---
 - name: Zabbix installation
   hosts: zabbix-server
+
+  pre_tasks:
+  - name: Résumé
+    debug:
+      msg: "Début du déploiement."
+
   roles:
     - zabbix-server
+
+  post_tasks:
+  - name: Résumé
+    debug:
+      msg: "Déploiement réalisé avec succès."
