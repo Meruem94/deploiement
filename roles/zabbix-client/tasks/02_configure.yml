@@ -1,0 +1,40 @@
+# file: /roles/zabbix-client/tasks/02_configure.yml
+---
+- name: Configuration of zabbix_agent.conf file 1/3
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: '^Server='
+    line: 'Server= {{ Server }}'
+
+- name: Configuration of zabbix_agent.conf file 2/3
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: '^Hostname='
+    line: 'Hostname={{ Hostname }}'
+
+- name: Configuration of zabbix_agent.conf file 2/3
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: '^ServerActive='
+    line: '#ServerActive=127.0.0.1'
+
+- name: Restaring Zabbix agent
+  service:
+    name: zabbix-agent
+    state: restarted
+
+- name: Disable SELinux 1/2
+  selinux:
+    state: disabled
+
+- name: Disable SELlinux 2/2
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=permissive'
+
+- name: Stop and disable firewalld.
+  service:
+    name: firewalld
+    state: stopped
+    enabled: False

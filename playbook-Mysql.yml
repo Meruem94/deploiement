@@ -1,0 +1,7 @@
+# file: ansible/playbook.yml
+---
+- name: Installation MariaDB
+  hosts: web
+  roles:
+    - init
+    - mysql

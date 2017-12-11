@@ -1,0 +1,42 @@
+# file: roles/zabbix/tasks/02_configure_database.yml
+---
+- name: Enable MariaDB
+  systemd: name=mariadb enabled=yes
+
+- name : Start MariaDb
+  systemd: name=mariadb state=started
+
+- name: Create new user {{ zabbix_user_name }} with grant permission
+  mysql_user: name={{ zabbix_user_name }} host=localhost password={{ mysql_zabbix_password }} priv=*.*:ALL,GRANT state=present
+
+- name: Create a new database with name {{ database_name }}
+  mysql_db:
+    name: "{{ database_name }}"
+    state: present
+  notify:
+    - Restart the MySQL service
+
+- name: Dump {{ database_name }} databases
+  mysql_db:
+    state: absent
+    name: --all-databases
+
+- name : Import initial schema
+  mysql_db: name=zabbix state=import target={{ item }}
+  with_items:
+    - /usr/share/doc/zabbix-server-mysql-3.4.4/create.sql.gz
+
+- name: Change PHP configuration
+  lineinfile:
+    dest: /etc/php.ini
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^max_execution_time', line: 'max_execution_time = 600' }
+    - { regexp: '^max_input_time', line: 'max_input_time = 600' }
+    - { regexp: '^memory_limit', line: 'memory_limit = 256M' }
+    - { regexp: '^post_max_size', line: 'post_max_size = 32M' }
+    - { regexp: '^upload_max_filesize', line: 'upload_max_filesize = 16M' }
+    - { regexp: '^;date.timezone', line: 'date.timezone = Europe/Paris' }
+  notify:
+    - Restart the PHP service

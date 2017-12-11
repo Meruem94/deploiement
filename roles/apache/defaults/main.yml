@@ -1,0 +1,14 @@
+# file: roles/apache/defaults/main.yml
+---
+# System vars
+Source_1: /home/ansible/ansible/roles/apache/files/index.html
+Source_2: /home/ansible/ansible/roles/apache/files/test.php
+Destination_1: /var/www/{{ user_web }}/public_html/index.html
+Destination_2: /var/www/{{ user_web }}/public_html/test.php
+
+# Apache vars
+sitesavailable: /etc/httpd/sites-available
+sitesenabled: /etc/httpd/sites-enabled
+ServerName :
+ServerAlias :
+DocumentRoot :

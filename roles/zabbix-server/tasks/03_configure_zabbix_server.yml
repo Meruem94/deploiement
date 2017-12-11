@@ -1,0 +1,12 @@
+# file: roles/zabbix/tasks/03_configure_zabbix_server.yml
+---
+- name : Update database informations for zabbix_server.conf
+  lineinfile:
+    dest: /etc/zabbix/zabbix_server.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^# DBName=', line: 'DBName={{ database_name }}' }
+    - { regexp: '^# DBUser=', line: 'DBUser={{ zabbix_user_name }}' }
+    - { regexp: '^# DBPassword',line: 'DBPassword={{ mysql_zabbix_password }}' }
+    - { regexp: '^# DBHost', line: 'DBHost=localhost' }

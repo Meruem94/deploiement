@@ -1,0 +1,38 @@
+# /roles/centreon-server/tasks/01_install.yml
+---
+- name: Disable SELinux 1/2
+  selinux:
+    state: disabled
+
+- name: Disable SELlinux 2/2
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=permissive'
+
+- name: Stop and disable firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: False
+
+- name: Install epel repository
+  yum: name=epel-release state=latest
+
+- name: Update system
+  yum: name=* state=latest
+
+- name: Download centreon repository
+  yum: name=http://yum.centreon.com/standard/3.4/el7/stable/noarch/RPMS/centreon-release-3.4-4.el7.centos.noarch.rpm state=present
+
+- name: Install Centreon, MySQL, Collecteur
+  yum: name={{ item }} state=latest
+  with_items :
+      - centreon-base-config-centreon-engine
+      - centreon
+      - mysql
+      - MySQL-python
+      - mariadb-server
+      - httpd
+      - php
+      - php-mysql

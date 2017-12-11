@@ -1,0 +1,7 @@
+# file: roles/zabbix/defaults/main.yml
+---
+zabbix_user_name: zabbix
+mysql_zabbix_password: zabbix
+database_name: zabbix
+Source: /home/ansible/ansible/roles/zabbix-server/files/README.txt
+Destination: /root/README.txt

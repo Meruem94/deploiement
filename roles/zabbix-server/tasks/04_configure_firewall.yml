@@ -1,0 +1,32 @@
+# file: roles/zabbix/tasks/04_configure_firewall.yml
+---
+- name : Delete all iptables rules
+  shell: name="{{ item }}"
+  with_items:
+    - "iptables -F"
+    - "iptables -X"
+    - "iptables -t nat -F"
+    - "iptables -t nat -X"
+    - "iptables -t mangle -F"
+    - "iptables -t mangle -X"
+    - "iptables -P INPUT ACCEPT"
+    - "iptables -P FORWARD ACCEPT"
+    - "iptables -P OUTPUT ACCEPT"
+  notifiy:
+    - Restart the iptables service
+
+- name: Disable SELinux 1/2
+  selinux:
+    state: disabled
+
+- name: Disable SELlinux 2/2
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=permissive'
+
+- name: Stop and disable firewalld.
+  service:
+    name: firewalld
+    state: stopped
+    enabled: False

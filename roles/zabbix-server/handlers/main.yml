@@ -1,0 +1,10 @@
+# file: roles/zabbix/handlers/main.yml
+---
+- name: Restart the MySQL service
+  service: name=mariadb state=restarted enabled=true
+
+- name: Restart the PHP service
+  service: name=mariadb state=restarted enabled=true
+
+- name: Restart the iptables service
+  service: name=iptables state=restarted enabled=true

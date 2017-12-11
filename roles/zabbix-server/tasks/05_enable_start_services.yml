@@ -1,0 +1,23 @@
+# file: roles/zabbix/tasks/05_enable_start_services.yml
+---
+- name : Enable services
+  service: name="{{ item }}" enabled=yes
+  with_items:
+    - zabbix-agent
+    - zabbix-server
+    - httpd
+
+- name : Start services
+  service: name="{{ item }}" state=restarted
+  with_items:
+    - zabbix-agent
+    - zabbix-server
+    - httpd
+
+- name: Copy README.txt file to the remote host, home directory
+  copy:
+    src: "{{ Source }}"
+    dest: "{{ Destination }}"
+    owner: root
+    group: root
+    mode: 0660

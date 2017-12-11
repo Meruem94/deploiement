@@ -1,0 +1,5 @@
+# file; /roles/centreon-server/task/main.yml
+---
+- include: 01_install.yml
+- include: 02_configure.yml
+- include: 03_enable_start_services.yml

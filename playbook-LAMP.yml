@@ -1,0 +1,8 @@
+---
+- name: Installation Apache | MariaDB | PHP
+  hosts: web
+  roles:
+    - init
+    - php
+    - mysql
+    - apache

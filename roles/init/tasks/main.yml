@@ -1,0 +1,16 @@
+# file: roles/init/tasks/main.yml
+---
+- name: Update Yum
+  yum: name=* state=latest
+
+#- name: Install basic package
+#  yum: name={{ item }} state=installed
+#  with_items:
+#     - git
+#     - curl
+#     - gcc
+#     - kernel-devel
+#     - wget
+#     - vim
+#     - man
+#     - unzip

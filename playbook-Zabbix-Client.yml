@@ -1,0 +1,6 @@
+# file: ansible/playbook-Zabbix.yml
+---
+- name: Zabbix installation
+  hosts: zabbix-client 
+  roles:
+    - zabbix-client

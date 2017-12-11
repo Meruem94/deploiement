@@ -1,0 +1,10 @@
+[db-server]
+
+[zabbix-server]
+192.168.0.30 ansible_ssh_user=root ansible_ssh_password=Aqwzsx1$
+
+[zabbix-client]
+192.168.0.47 ansible_ssh_user=root
+
+[centreon-server]
+192.168.0.30 ansible_ssh_user=root

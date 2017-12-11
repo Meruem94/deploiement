@@ -1,0 +1,8 @@
+# file: roles/mysql/defaults/main.yml
+---
+mysql_root_password: Aqwzsx1$
+
+mysql_users:
+      - name: root
+        pass: Aqwzsx1$
+        priv: "*.*:ALL,GRANT"

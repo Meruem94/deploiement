@@ -1,0 +1,39 @@
+# file: /roles/centreon-server/tasks/02_configure.yml
+---
+- name: PHP timezone
+  file:
+    path: /etc/php.d/php-timezone.ini
+    state: touch
+
+- name: PHP timezone set value
+  blockinfile:
+    path: /etc/php.d/php-timezone.ini
+    block: date.timezone = Europe/Paris
+
+- name: Enable MariaDB
+  systemd: name=mariadb enabled=yes
+
+- name : Start MariaDb
+  systemd: name=mariadb state=started
+
+- name: Create new user centreon with grant permission
+  mysql_user: name=centreon host=localhost password=centreon priv=*.*:ALL,GRANT state=present
+
+- name: Create a new database with name centreon
+  mysql_db:
+    name: centreon
+    state: present
+
+- name: Daemon reload
+  systemd:
+    name: daemon-reload
+
+#- name: DataBase Management System
+#  file:
+#    path: /etc/systemd/system/mariadb.service.d/limits.conf
+#    state: touch
+
+#- name: DataBase Management Systemset value
+#  blockinfile:
+#    path: /etc/systemd/system/mariadb.service.d/limits.conf
+#    block: "[Service]\nLimitNOFILE=32000"

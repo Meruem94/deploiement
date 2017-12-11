@@ -1,0 +1,20 @@
+# file: roles/php/tasks/main.yml
+---
+- name : Install PHP
+  yum:
+    name={{ item }}
+  with_items:
+    - php
+    - php-mysql
+
+- name : Display PHP errors 1/2
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^display_errors = Off'
+    line: 'display_errors = On'
+
+- name : Display PHP errors 2/2
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^error_reporting ='
+    line: 'error_reporting = E_ALL'

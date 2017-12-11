@@ -1,0 +1,4 @@
+# # file: roles/apache/vars/main.yml
+---
+# System vars
+user_web: daniel

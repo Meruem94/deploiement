@@ -1,0 +1,7 @@
+# file: /roles/centreon-server/03_enable_start_services.yml
+---
+- name: Enable services
+  service: name=httpd enabled=yes
+
+- name: Start services
+  service: name=httpd state=restarted

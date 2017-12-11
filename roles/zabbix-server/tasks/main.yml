@@ -1,0 +1,7 @@
+# file: roles/zabbix/tasks/main.yml
+---
+- include: 01_install.yml
+- include: 02_configure_database.yml
+- include: 03_configure_zabbix_server.yml
+- include: 04_configure_firewall.yml
+- include: 05_enable_start_services.yml

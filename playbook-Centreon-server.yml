@@ -1,0 +1,5 @@
+---
+- name: Centre installation
+  hosts: centreon-server
+  roles:
+    - centreon-server

@@ -1,0 +1,4 @@
+# file: roles/zabbix-client/tasks/main.yuml
+---
+- include: 01_install.yml
+- include: 02_configure.yml
