@@ -3,8 +3,8 @@
 zabbix_user_name: zabbix
 mysql_zabbix_password: zabbix
 database_name: zabbix
-files_Path_ansible: /home/ansible/ansible
-file_Path_jenkins: /var/lib/jenkins/workspace/ansible
-Source: "{{files_Path_ansible}}/roles/zabbix-server/files/README.txt"
-#Source: "{{file_Path_jenkins}}/roles/zabbix-server/files/README.txt"
+Path_ansible: /home/ansible/ansible
+Path_jenkins: /var/lib/jenkins/workspace/ansible
+Source: "{{Path_ansible}}/roles/zabbix-server/files/README.txt"
+#Source: "{{Path_jenkins}}/roles/zabbix-server/files/README.txt"
 Destination: /root/README.txt
