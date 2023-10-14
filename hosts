@@ -9,4 +9,3 @@
 [centreon-server]
 192.168.0.30 ansible_ssh_user=root
 
-#test
